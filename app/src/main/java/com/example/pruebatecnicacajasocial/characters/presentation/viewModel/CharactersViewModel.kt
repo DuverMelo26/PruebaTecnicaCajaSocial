@@ -47,9 +47,8 @@ class CharactersViewModel @Inject constructor(
         if (apiResponse is ApiResponseStatus.Success) {
             listApiCharacters.addAll(apiResponse.data)
             listCategories.clear()
-            listCategories.addAll(listApiCharacters.map { it.species }.distinct())
-            listApiCharactersBackup.clear()
-            listApiCharactersBackup.addAll(listApiCharacters)
+            listApiCharactersBackup.addAll(apiResponse.data)
+            listCategories.addAll(listApiCharactersBackup.map { it.species }.distinct())
             currentPage++
         }
         getPaginatedCharactersStatus.value = apiResponse

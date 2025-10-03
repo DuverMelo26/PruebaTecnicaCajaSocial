@@ -143,23 +143,27 @@ fun ListaCategorias(
     onSelectedCategory: (String?) -> Unit,
     listCategories: SnapshotStateList<String>
 ) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(listCategories.size) { index ->
-            val category = listCategories[index]
-            FilterChip(
-                selected = selectedCategory == category,
-                onClick = {
-                    onSelectedCategory (if (selectedCategory == category) null else category)
-                },
-                label = { Text(category) }
-            )
+    Column(modifier = Modifier.padding(8.dp)) {
+        Text("Categorias por especie:", style = MaterialTheme.typography.bodyMedium)
+        Spacer(modifier = Modifier.width(8.dp))
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(listCategories.size) { index ->
+                val category = listCategories[index]
+                FilterChip(
+                    selected = selectedCategory == category,
+                    onClick = {
+                        onSelectedCategory (if (selectedCategory == category) null else category)
+                    },
+                    label = { Text(category) }
+                )
+            }
         }
     }
+
 }
 
 @Composable
