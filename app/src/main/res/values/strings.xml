@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PruebaTecnicaCajaSocial</string>
+    <string name="title_activity_characters">CharactersActivity</string>
+    <string name="falla_consultando_personajes">Falla consultando más personajes, intente de nuevo.</string>
+    <string name="buscar_personaje">Escribe el nombre, tipo o genero</string>
+    <string name="escribe_el_nombre_de_tu_personaje">Escribe el nombre de tu personaje</string>
+    <string name="cambie_el_nombre_del_personaje">Cambie el nombre del personaje</string>
+    <string name="quiere_borrar_este_personaje">¿Quiere borrar este personaje?</string>
+    <string name="no_hay_personajes_creados">No hay personajes creados</string>
+    <string name="crear_personaje">Crear personaje</string>
+    <string name="ingrese_el_nombre_de_su_nuevo_personaje">Ingrese el nombre de su nuevo personaje</string>
+    <string name="editar_personaje">Editar personaje</string>
+    <string name="borrar_personaje">Borrar personaje</string>
+</resources>
