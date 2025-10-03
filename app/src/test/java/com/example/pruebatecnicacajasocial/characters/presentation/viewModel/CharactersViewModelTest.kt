@@ -21,6 +21,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.Date
 
 @ExperimentalCoroutinesApi
 class CharactersViewModelTest {
@@ -152,6 +153,74 @@ class CharactersViewModelTest {
         // Then
         assertEquals(AdjustCharacterStatus.Complete, charactersViewModel.editCharacterStatus.value)
         coVerify(exactly = 1) { editCharacterUseCase(any()) }
+    }
+
+    @Test
+    fun `orderCharactersByCreateDate ordena los personajes del mas antiguo al mas nuevo`() = runTest {
+        val personajesFake = listOf(
+            CharacterDomain(id = 1, name = "nombre1", created = Date()),
+            CharacterDomain(id = 2, name = "nombre2", created = Date())
+        )
+        coEvery { getPaginatedCharactersUseCase(any()) } returns ApiResponseStatus.Success(personajesFake)
+        charactersViewModel.getCharacters()
+
+        // When
+        charactersViewModel.orderCharactersByCreateDate("Mas antiguos")
+
+        // Then
+        assertEquals(2, charactersViewModel.listApiCharacters.size)
+    }
+
+    @Test
+    fun `orderCharactersByCreateDate ordena los personajes del mas reciente al mas antiguo`() = runTest {
+        // Given
+        val personajesFake = listOf(
+            CharacterDomain(id = 1, name = "nombre1", created = Date()),
+            CharacterDomain(id = 2, name = "nombre2", created = Date())
+        )
+        coEvery { getPaginatedCharactersUseCase(any()) } returns ApiResponseStatus.Success(personajesFake)
+        charactersViewModel.getCharacters()
+
+        // When
+        charactersViewModel.orderCharactersByCreateDate("Mas recientes")
+
+        // Then
+        assertEquals(2, charactersViewModel.listApiCharacters.size)
+    }
+
+    @Test
+    fun `orderCharactersBySpecie filtra la lista de personajes por una especie`() = runTest {
+        // Given
+        val personajesFake = listOf(
+            CharacterDomain(id = 1, name = "nombre1", species = "Specie1"),
+            CharacterDomain(id = 2, name = "nombre2", species = "Specie2")
+        )
+        coEvery { getPaginatedCharactersUseCase(any()) } returns ApiResponseStatus.Success(personajesFake)
+        charactersViewModel.getCharacters()
+
+        // When
+        charactersViewModel.orderCharactersBySpecie("Specie2")
+
+        // Then
+        assertEquals(1, charactersViewModel.listApiCharacters.size)
+        assertEquals("Specie2", charactersViewModel.listApiCharacters[0].species)
+    }
+
+    @Test
+    fun `orderCharactersBySpecie recupera la lista original de personajes porque la especie a filtrar es nula`() = runTest {
+        // Given
+        val personajesFake = listOf(
+            CharacterDomain(id = 1, name = "nombre1", species = "Specie1"),
+            CharacterDomain(id = 2, name = "nombre2", species = "Specie2")
+        )
+        coEvery { getPaginatedCharactersUseCase(any()) } returns ApiResponseStatus.Success(personajesFake)
+        charactersViewModel.getCharacters()
+
+        // When
+        charactersViewModel.orderCharactersBySpecie(null)
+
+        // Then
+        assertEquals(2, charactersViewModel.listApiCharacters.size)
     }
 
 }

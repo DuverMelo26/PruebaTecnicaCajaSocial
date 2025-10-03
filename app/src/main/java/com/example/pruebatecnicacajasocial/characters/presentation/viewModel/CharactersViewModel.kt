@@ -29,7 +29,7 @@ class CharactersViewModel @Inject constructor(
     private val editCharacterUseCase: EditCharacterUseCase
 ) : ViewModel() {
     val listApiCharacters = mutableStateListOf<CharacterDomain>()
-    val listApiCharactersBackup = mutableListOf<CharacterDomain>()
+    private val listApiCharactersBackup = mutableListOf<CharacterDomain>()
     val listCategories = mutableStateListOf<String>()
     private var currentPage: Int = 1
     val getPaginatedCharactersStatus = MutableLiveData<ApiResponseStatus<List<CharacterDomain>>>()
