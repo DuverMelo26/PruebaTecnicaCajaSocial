@@ -20,7 +20,7 @@ Autor: Duver Alexander Melo Mendivelso.
 
 # Instrucciones para ejecutar la aplicación
 
-1. Clonar el repositorio: 
+1. Clonar el repositorio: https://github.com/DuverMelo26/PruebaTecnicaCajaSocial
 2. Abrir el proyecto en Android Studio.
 3. Ejecutar la aplicación desde Android Studio.
 
